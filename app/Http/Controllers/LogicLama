@@ -1,0 +1,111 @@
+        // $validator = Validator::make($request->all(), [
+        //     'title' => 'required|unique:posts|max:255',
+        //     'body' => 'required',
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return back()
+        //                 ->withErrors($validator)
+        //                 ->withInput();
+        // }
+
+        // $pertanyaans = Pertanyaan::all();
+        // $pertanyaans_array = array();
+        // $keys = array_keys($request->all());
+        // $kunci = array();
+        // foreach($keys as $key)
+        // {
+        //     if(preg_match('/question/i', $key)) {
+        //         $k = explode("_",$key);
+        //         $b['question'] = $k[0];
+        //         $b['tipe'] = $k[1];
+        //         $b['data'] = $k[2];
+        //         $b['answer'] = $request->input($key);
+        //         array_push($kunci, $b);
+        //     }
+        // }
+
+        // $tindakan_user = JawabanUser::where('user_id',auth()->user()->id)->groupBy('tindakan_ke')->orderBy('tindakan_ke', 'desc')->first();
+        // $tindakan_user = ($tindakan_user == null) ? 1: ++$tindakan_user->tindakan_ke;
+        
+        // foreach($pertanyaans as $pertanyaan)
+        // {
+        //     $data['pertanyaan_id'] = $pertanyaan->id;
+        //     $data['user_id'] = auth()->user()->id;
+        //     $data['ip_address'] = $request->ip();
+        //     $data['tahun'] = date('Y');
+        //     $data['tindakan_ke'] = $tindakan_user;
+        //     $data['created_at'] = date('Y-m-d H:i:s');
+        //     $data['updated_at'] = date('Y-m-d H:i:s');
+        //     array_push($pertanyaans_array, $data);
+        // }
+
+        // if(count($request->id_pertanya) === count($pertanyaans_array))
+        // {
+        //     $jawabanUser = JawabanUser::insert($pertanyaans_array);
+        //     if($jawabanUser)
+        //     {
+        //         $jawaban_users = JawabanUser::where('user_id', auth()->user()->id)
+        //                                     ->where('tindakan_ke', $tindakan_user)->get();
+
+        //         $i = 0;
+        //         foreach($jawaban_users as $jawaban_user)
+        //         {
+        //             $quest = Pertanyaan::find($jawaban_user->pertanyaan_id);
+
+        //             if($quest->pertanyaan_tipe->tipe->nama_tipe === 'Input')
+        //             {
+        //                 $jawabanData['jawaban_user_id'] = $jawaban_user->id;
+        //                 $jawabanData['jawaban_id'] = '';
+        //                 $jawabanData['jawaban_lain'] = $kunci[$i]['answer'];
+
+        //                 JawabanUserDetail::create($jawabanData);
+        //             }
+        //             else if($quest->pertanyaan_tipe->tipe->nama_tipe === 'Radio')
+        //             {
+        //                 $jawabanExplode = explode('_',$kunci[$i]['answer'][0]);
+        //                 $jawabanData['jawaban_user_id'] = $jawaban_user->id;
+        //                 $jawabanData['jawaban_id'] = $jawabanExplode[1];
+                        
+        //                 $j = Jawaban::find($jawabanExplode[1]);
+
+        //                 if(preg_match('/lainnya/i', $j))
+        //                 {
+        //                     $jawabanData['jawaban_lain'] = $kunci[$i]['answer'][1];
+        //                 }
+        //                 else {
+        //                     $jawabanData['jawaban_lain'] = NULL;
+        //                 }
+
+        //                 JawabanUserDetail::create($jawabanData);
+        //             }
+        //             else if($quest->pertanyaan_tipe->tipe->nama_tipe === 'Checkbox')
+        //             {
+        //                 $countAnswer = count($kunci[$i]['answer']);
+        //                 foreach($kunci[$i]['answer'] as $answer)
+        //                 {
+        //                     if($answer !== null)
+        //                     {
+        //                         if(preg_match('/from/i', $answer)) {
+        //                             $jawabanExplode = explode('_', $answer);
+        //                             $get_id_jawaban = Jawaban::find($jawabanExplode[1]);
+        //                             $jawabanData['jawaban_user_id'] = $jawaban_user->id;
+
+        //                             if(preg_match('/lainnya/i', $get_id_jawaban->deskripsi_jawaban)) {
+        //                                 $jawabanData['jawaban_id'] = $get_id_jawaban->id;
+        //                                 $jawabanData['jawaban_lain'] = $kunci[$i]['answer'][$countAnswer-1];
+        //                             }
+        //                             else {
+        //                                 $jawabanData['jawaban_id'] = $get_id_jawaban->id;
+        //                                 $jawabanData['jawaban_lain'] = NULL;
+        //                             }
+                                    
+        //                             JawabanUserDetail::create($jawabanData);
+        //                         }                        
+        //                     }
+        //                 }
+        //             }
+        //             $i = $i + 1;
+        //         }
+        //     }
+        // }
