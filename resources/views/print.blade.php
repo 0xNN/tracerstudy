@@ -3,7 +3,7 @@
 <html>
 <head>
 
-	<title>Jonathan Doe | Web Designer, Director | name@yourdomain.com</title>
+	<title>{{ $f1->nama_mahasiswa }}</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 	<meta name="keywords" content="" />
@@ -13,7 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/resume.css') }}" media="all" />
 
 </head>
-<body>
+<body onload="print()">
 
 <div id="doc2" class="yui-t7">
 	<div id="inner">
@@ -21,16 +21,42 @@
 		<div id="hd">
 			<div class="yui-gc">
 				<div class="yui-u first">
-					<h1>Jonathan Doe</h1>
-					<h2>Web Designer, Director</h2>
+					<h1>{{ $f1->nama_mahasiswa }}</h1>
+					<h2>Program Studi {{ $prodi[0]['nama_program_studi'] }}</h2>
+					{{-- <div class="yui-u"> --}}
+
+						<br/>
+					{{-- </div> --}}
+					{{-- <div class="yui-u"> --}}
+						<table>
+							<tr>
+								<th colspan="3">
+									<div class="contact-info">
+										<p><a id="pdf" href="#">STIHPADA - Palembang</a></p>
+									</div><!--// .contact-info -->
+								</th>
+							</tr>
+							<tr>
+								<th width="60%">Email</th>
+								<th width="5%">:</th>
+								<th> {{ $f1->email }}</th>
+							</tr>
+							<tr>
+								<th width="60%">Tahun Lulus</th>
+								<th width="5%">:</th>
+								<th> {{ $f1->thn_lulus }}</th>
+							</tr>
+							<tr>
+								<th width="60%">No HP</th>
+								<th width="5%">:</th>
+								<th> {{ $f1->no_hp }}</th>
+							</tr>
+						</table>
+					{{-- </div> --}}
 				</div>
 
 				<div class="yui-u">
-					<div class="contact-info">
-						<h3><a id="pdf" href="#">Download PDF</a></h3>
-						<h3><a href="mailto:name@yourdomain.com">name@yourdomain.com</a></h3>
-						<h3>(313) - 867-5309</h3>
-					</div><!--// .contact-info -->
+					<img src="{{ $f1->foto_alumni }}" alt="Foto Alumni" width="100px" height="120px">
 				</div>
 			</div><!--// .yui-gc -->
 		</div><!--// hd -->
@@ -41,64 +67,93 @@
 
 					<div class="yui-gf">
 						<div class="yui-u first">
-							<h2>Profile</h2>
+							{!! QrCode::size(80)->generate($f1->no_ijazah == null ? 'Not Found': $f1->no_ijazah); !!}
 						</div>
 						<div class="yui-u">
-							<p class="enlarge">
-								Progressively evolve cross-platform ideas before impactful infomediaries. Energistically visualize tactical initiatives before cross-media catalysts for change.
-							</p>
+							<table width="100%">
+								<tr>
+									<th width="25%">NIM</th>
+									<th width="2%">:</th>
+									<th width="73%">{{ $f1->nim }}</th>
+								</tr>
+								<tr>
+									<th width="25%">NIK</th>
+									<th width="2%">:</th>
+									<th width="73%">{{ $f1->nik }}</th>
+								</tr>
+								<tr>
+									<th width="25%">Angkatan</th>
+									<th width="2%">:</th>
+									<th width="73%">{{ $f1->angkatan }}</th>
+								</tr>
+								<tr>
+									<th width="25%">Jenis Kelamin</th>
+									<th width="2%">:</th>
+									<th width="73%">{{ $f1->jenis_kelamin_id == 1 ? 'Laki-laki': 'Perempuan' }}</th>
+								</tr>
+								<tr>
+									<th width="25%">Tempat/Tanggal Lahir</th>
+									<th width="2%">:</th>
+									<th width="73%">{{ $f1->tmp_lahir }} / {{ $f1->tgl_lahir }}</th>
+								</tr>
+								<tr>
+									<th width="25%">Alamat</th>
+									<th width="2%">:</th>
+									<th width="73%">{{ $f1->alamat }}</th>
+								</tr>
+							</table>
 						</div>
 					</div><!--// .yui-gf -->
 
 					<div class="yui-gf">
 						<div class="yui-u first">
-							<h2>Skills</h2>
+							<h2>Kelulusan</h2>
 						</div>
 						<div class="yui-u">
 
 								<div class="talent">
-									<h2>Web Design</h2>
-									<p>Assertively exploit wireless initiatives rather than synergistic core competencies.	</p>
+									<h2>Tanggal Selesai</h2>
+									<p>{{ Carbon\Carbon::parse($f1->tgl_selesai)->isoFormat('dddd, D MMMM Y') }}</p>
 								</div>
 
 								<div class="talent">
-									<h2>Interface Design</h2>
-									<p>Credibly streamline mission-critical value with multifunctional functionalities.	 </p>
+									<h2>Tanggal Kompre</h2>
+									<p>{{ Carbon\Carbon::parse($f1->tgl_kompre)->isoFormat('dddd, D MMMM Y') }}</p>
 								</div>
 
 								<div class="talent">
-									<h2>Project Direction</h2>
-									<p>Proven ability to lead and manage a wide variety of design and development projects in team and independent situations.</p>
+									<h2>Tanggal Wisuda</h2>
+									<p>{{ Carbon\Carbon::parse($f1->tgl_wisuda)->isoFormat('dddd, D MMMM Y') }}</p>
 								</div>
 						</div>
 					</div><!--// .yui-gf -->
 
 					<div class="yui-gf">
 						<div class="yui-u first">
-							<h2>Technical</h2>
+							<h2>Tempat Kerja</h2>
 						</div>
 						<div class="yui-u">
 							<ul class="talent">
-								<li>XHTML</li>
-								<li>CSS</li>
-								<li class="last">Javascript</li>
+								<li>Perusahaan/Instansi</li>
+								<li>{{ $f1->tempat_kerja == null ? '-': $f1->tempat_kerja}}</li>
+								<li class="last">{{ $f1->no_telp_tmpt_kerja == null ? '-': $f1->no_telp_tmpt_kerja }}</li>
 							</ul>
 
 							<ul class="talent">
-								<li>Jquery</li>
-								<li>PHP</li>
-								<li class="last">CVS / Subversion</li>
+								<li>Jabatan</li>
+								<li>{{ $f1->jabatan== null ? '-': $f1->jabatan }}</li>
+								<li class="last">{{ $f1->alamat_tempat_kerja == null ? '-': $f1->alamat_tempat_kerja}}</li>
 							</ul>
 
-							<ul class="talent">
-								<li>OS X</li>
+							{{-- <ul class="talent">
+								<li>Ibu</li>
 								<li>Windows XP/Vista</li>
 								<li class="last">Linux</li>
-							</ul>
+							</ul> --}}
 						</div>
 					</div><!--// .yui-gf-->
 
-					<div class="yui-gf">
+					{{-- <div class="yui-gf">
 
 						<div class="yui-u first">
 							<h2>Experience</h2>
@@ -147,7 +202,7 @@
 							<h2>Indiana University - Bloomington, Indiana</h2>
 							<h3>Dual Major, Economics and English &mdash; <strong>4.0 GPA</strong> </h3>
 						</div>
-					</div><!--// .yui-gf -->
+					</div><!--// .yui-gf --> --}}
 
 
 				</div><!--// .yui-b -->
@@ -155,7 +210,7 @@
 		</div><!--// bd -->
 
 		<div id="ft">
-			<p>Jonathan Doe &mdash; <a href="mailto:name@yourdomain.com">name@yourdomain.com</a> &mdash; (313) - 867-5309</p>
+			<p>{{ $profilpt[0]['nama_perguruan_tinggi'] }} &mdash; <a href="mailto:{{ $profilpt[0]['email'] }}">{{ $profilpt[0]['email'] }}</a> &mdash; {{ $profilpt[0]['telepon'] }}</p>
 		</div><!--// footer -->
 
 	</div><!-- // inner -->

@@ -151,7 +151,8 @@ class F1Controller extends Controller
 
         $id = $request->id;
 
-        $thn_lulus = date('Y', strtotime($request->f1_tanggalwisuda));
+        // $thn_lulus = date('Y', strtotime($request->f1_tanggalwisuda));
+        $thn_lulus = $request->f1_thnlulus;
 
         $name = round(microtime(true) * 1000).'-'.str_replace(' ','-',$request->file('f1_foto')->getClientOriginalName());
 

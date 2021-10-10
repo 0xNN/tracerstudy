@@ -153,6 +153,38 @@ class KuesionerController extends Controller
 
     public function print($nim)
     {
-        return view('print');
+        if($nim != auth()->user()->name) {
+            abort(403);
+        }
+        $f1 = F1::where('nim', $nim)->first();
+
+        if($f1->kode_prodi == '74201') {
+            $kode_prodi = "74201";
+        } else {
+            $kode_prodi = "74101     ";
+        }
+        $profil = new ProfilController;
+        $token = $profil->get_token();
+        $prodi = $profil->get_api([
+            'token'=>$token,
+            'act'=>'GetProdi',
+            'filter'=>"kode_program_studi = '".$kode_prodi."'",
+            'limit'=>'',
+            'offset'=>0
+        ]);
+
+        $profilpt = $profil->get_api([
+            'token'=>$token,
+            'act'=>'GetProfilPT',
+            'filter'=>'',
+            'limit'=>'',
+            'offset'=>0
+        ]);
+        // dd($profilpt);
+        return view('print', compact(
+            'f1',
+            'prodi',
+            'profilpt'
+        ));
     }
 }

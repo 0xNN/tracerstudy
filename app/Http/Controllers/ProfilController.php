@@ -74,6 +74,11 @@ class ProfilController extends Controller
     public function index()
     {
         $alumni = $this->get_alumni_with_nim(auth()->user()->name);
+        if(array_key_exists('errors', $alumni)) {
+            $alumniIsExists = false;
+        } else {
+            $alumniIsExists = true;
+        }
         // dd($alumni);
         $token = $this->get_token();
         $profilpt = $this->get_api([
@@ -96,7 +101,15 @@ class ProfilController extends Controller
         $agamas = Agama::all();
         $f1 = F1::whereNim(auth()->user()->name)->first();
         // dd($profilpt);
-        return view('profil', compact('profilpt','prodi','dosens','agamas','alumni','f1'));
+        return view('profil', compact(
+            'profilpt',
+            'prodi',
+            'dosens',
+            'agamas',
+            'alumni',
+            'f1',
+            'alumniIsExists'
+        ));
     }
 
     /**

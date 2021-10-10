@@ -14,13 +14,6 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-      <a class="nav-link" href="{{ url('/home') }}">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
-    </li>
-
     @if (auth()->user()->is_admin !== 1)
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -59,6 +52,13 @@
     <!-- Divider -->
     {{-- <hr class="sidebar-divider"> --}}
     <!-- Heading -->
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url('/home') }}">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span></a>
+    </li>
 
     <li class="nav-item">
       <a href="{{ route('pertanyaan_jawaban.index') }}" class="nav-link">
