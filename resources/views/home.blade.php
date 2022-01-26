@@ -23,15 +23,15 @@
             <div class="shadow" id="container-prodi"></div>
         </div>
         <div class="col-sm-6">
-            <div class="shadow" id="container-kabupaten"></div>
+            <div class="shadow mt-3" id="container-jenispekerjaan"></div>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <div class="shadow mt-3" id="container-provinsi"></div>
         </div>
-        <div class="col-sm-6">
-            <div class="shadow mt-3" id="container-jenispekerjaan"></div>
+        <div class="col-sm-12">
+            <div class="shadow mt-3" id="container-kabupaten"></div>
         </div>
     </div>
 @endsection
@@ -132,11 +132,7 @@
                 allowPointSelect: true
             }
         },
-        series: [{
-            data: [20]
-        },{
-            data: [45]
-        }],
+        series: {!! json_encode($datas["jumlah_alumni_per_prodi"]) !!},
         responsive: {
             rules: [{
                 condition: {
@@ -161,7 +157,7 @@
         type: 'column'
         },
         title: {
-            text: `Jumlah Alumni per Kabupaten, ${new Date().getFullYear()}`
+            text: `Jumlah Alumni per Kabupaten Sumsel, ${new Date().getFullYear()}`
         },
         subtitle: {
             text: 'Sumber data : E-Tracer dan Siakad STIHPADA'
@@ -184,11 +180,7 @@
                 allowPointSelect: true
             }
         },
-        series: [{
-            data: [20]
-        },{
-            data: [45]
-        }],
+        series: {!! json_encode($datas["jumlah_alumni_per_kabupaten"]) !!},
         responsive: {
             rules: [{
                 condition: {
@@ -223,7 +215,7 @@
         },
         yAxis: {
             title: {
-                text: 'Grafik Alumni per Kabupaten'
+                text: 'Grafik Alumni per Provinsi'
             }
         },
         legend: {
@@ -236,11 +228,7 @@
                 allowPointSelect: true
             }
         },
-        series: [{
-            data: [20]
-        },{
-            data: [45]
-        }],
+        series: {!! json_encode($datas["jumlah_alumni_per_provinsi"]) !!},
         responsive: {
             rules: [{
                 condition: {
@@ -288,11 +276,7 @@
                 allowPointSelect: true
             }
         },
-        series: [{
-            data: [20]
-        },{
-            data: [45]
-        }],
+        series: {!! json_encode($datas["jumlah_alumni_per_jenispekerjaan"]) !!},
         responsive: {
             rules: [{
                 condition: {

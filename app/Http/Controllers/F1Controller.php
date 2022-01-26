@@ -16,7 +16,7 @@ use GuzzleHttp\Client;
 
 class F1Controller extends Controller
 {
-    public $ALL_ALUMNI = 'http://sisfo-access.stihpada.web.id:8099/api/sisfo-guest/alumni/semua';
+    public $ALL_ALUMNI = 'https://sisfo-access.stihpada.web.id:8100/api/sisfo-guest/alumni/semua';
     public $TOKEN = "Bearer 3|b4AK0Pkc0Ye0r8YCH4i8whhKFxBrZPqGKIpHla13";
     // public $TOKEN = "Bearer 4|ZBOcFLhtRSFwf0LFv90QbYlvYPaUvAbyAZNYWinR";
 
@@ -34,7 +34,14 @@ class F1Controller extends Controller
             "Accept" => "application/json",
             ])->get($this->ALL_ALUMNI);
 
-        // dd($datass->json()['last_page']);
+        
+        if($datass->json() == null) {
+            return response()->json([
+                'totalSuccess' => 0,
+                'totalFail' => 0,
+                'success' => true,
+            ], 200);
+        }
         $from = 1;
         $last_page = $datass->json()['last_page'];
         // dd($last_page);
@@ -52,29 +59,31 @@ class F1Controller extends Controller
                     "Content-Type" => "application/json",
                     "Accept" => "application/json",
                 ])->get($url);
-                foreach($datas->json()['data'] as $data)
-                {
-                    // dd($data['nim']);
-                    $user = User::whereName($data['nim'])->first();
-                    // dd($user);
-                    // dd(empty($user));
-                    if(is_null($user))
+                if(isset($datas->json()["data"])) {
+                    foreach($datas->json()['data'] as $data)
                     {
+                        // dd($data['nim']);
+                        $user = User::whereName($data['nim'])->first();
                         // dd($user);
-                        User::create([
-                            'name' => $data['nim'],
-                            'email' => $data['email'],
-                            'password' => Hash::make($data['nim']),
-                            'is_admin' => 0,
-                        ]);
-
-                        $totalSuccess = $totalSuccess + 1;
+                        // dd(empty($user));
+                        if(is_null($user))
+                        {
+                            // dd($user);
+                            User::create([
+                                'name' => $data['nim'],
+                                'email' => $data['email'],
+                                'password' => Hash::make($data['nim']),
+                                'is_admin' => 0,
+                            ]);
+    
+                            $totalSuccess = $totalSuccess + 1;
+                        }
+                        else {
+                            $totalFail = $totalFail + 1;
+                        }
                     }
-                    else {
-                        $totalFail = $totalFail + 1;
-                    }
+                    $from = $from + 1;
                 }
-                $from = $from + 1;
             }
         } catch(Exception $e) {
             return response()->json($e->getMessage());

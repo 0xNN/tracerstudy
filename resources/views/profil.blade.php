@@ -558,18 +558,21 @@
         format: 'yyyy-mm-dd'
       });
 
+
     $('#f1_provinsi').select2({
         placeholder: 'Cari Provinsi...',
         ajax: {
-        url: "https://sisfo.host1.fran.id/indonesia-guest/provinsi",
-        dataType: 'json',
-        delay: 250,
-        processResults: function (data) {
-            return {
-                results: data.results
-            };
-        },
-        cache: true
+            url: "https://sisfo-access.stihpada.web.id:8100/indonesia-guest/provinsi",
+            dataType: 'json',
+            delay: 250,
+            async: true,
+            crossDomain: true,
+            processResults: function (data) {
+                return {
+                    results: data.results
+                };
+            },
+            cache: true
         }
     });
 
@@ -588,7 +591,7 @@
         $('#f1_kabupaten').select2({
             placeholder: 'Cari Kabupaten...',
             ajax : {
-            url: "https://sisfo.host1.fran.id/indonesia-guest/kab-kota/"+data,
+            url: "https://sisfo-access.stihpada.web.id:8100/indonesia-guest/kab-kota/"+data,
             dataType: 'json',
             delay: 250,
             processResults: function (data) {

@@ -18,7 +18,7 @@ class PertanyaanJawabanController extends Controller
                             $button = '<div class="btn-group btn-group-sm" role="group">';
                             $button .= '<button href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-info btn-sm edit-post"><i class="far fa-edit"></i></button>';
                             $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
-                            $button .= '<button type="button" name="detail" id="'.$data->id.'" class="detail btn btn-dark btn-sm detail-post"><i class="far fa-eye"></i></button>';
+                            // $button .= '<button type="button" name="detail" id="'.$data->id.'" class="detail btn btn-dark btn-sm detail-post"><i class="far fa-eye"></i></button>';
                             $button .= '</div>';
                             return $button;
                         })

@@ -18,8 +18,8 @@ class TipePertanyaanController extends Controller
         if ($request->ajax()){
             return datatables()->of($tipepertanyaan)->addColumn('action', function($data){
                             $button = '<div class="btn-group btn-group-sm" role="group">';
-                            $button .= '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-info btn-sm edit"><i class="far fa-edit"></i> Edit</a>';
-                            $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>';
+                            $button .= '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-info btn-sm edit"><i class="far fa-edit"></i></a>';
+                            $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
                             $button .= '</div>';
                             return $button;
                         })

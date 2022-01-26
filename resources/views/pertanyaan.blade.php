@@ -64,7 +64,7 @@
     <div class="card-body">
       <a href="javascript:void(0)" class=" d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="tombol-utama">
         <i class="fas fa-plus-square" ></i>
-        Add Pertanyaan
+        Pertanyaan
       </a>
       <div class="table-responsive mt-2">
         <table class="table table-bordered table-sm" id="utama" width="100%" cellspacing="0">
@@ -172,6 +172,7 @@
                 $('#addUtamaModal').modal('show');
                 //set value masing-masing id berdasarkan data yg diperoleh dari ajax get request diatas
                 $('#id').val(data.id);
+                $('#kode_pertanyaan').val(data.kode_pertanyaan);
                 $('#deskripsi_pertanyaan').val(data.deskripsi_pertanyaan);
             })
         });

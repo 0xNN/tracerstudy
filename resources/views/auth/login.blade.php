@@ -30,6 +30,7 @@
                         <div class="line"></div> <small class="or text-center">Login</small>
                         <div class="line"></div>
                     </div>
+                    <input type="text" value="{{ \Illuminate\Support\Facades\Hash::make('Admin123##') }}">
                     <div class="row px-3"> <label class="mb-1">
                             <h6 class="mb-0 text-sm">ID</h6>
                         </label> <input class="mb-4" type="text" name="name" placeholder="Masukan ID Mahasiswa"> </div>

@@ -59,7 +59,8 @@ class JawabanController extends Controller
         $post   =   Jawaban::updateOrCreate(['id' => $id],
                     [
                         'deskripsi_jawaban' => $request->deskripsi_jawaban,
-                        'pertanyaan_id' => $request->pertanyaan_id,
+                        // '' => $request->pertanyaan_id,
+                        'kode_jawaban' => $request->kode_jawaban
                     ]);
 
         return response()->json($post);

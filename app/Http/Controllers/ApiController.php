@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Http;
 class ApiController extends Controller
 {
     public $HOST = 'http://103.153.244.10:8082/ws/live2.php';
-    public $API_PROVINSI = 'https://sisfo.host1.fran.id/indonesia-guest/provinsi';
+    public $API_PROVINSI = 'https://sisfo-access.stihpada.web.id:8100/indonesia-guest/provinsi';
 
     public static function base_uri()
     {
-        return 'http://sisfo-access.stihpada.web.id:8099';
+        return 'https://sisfo-access.stihpada.web.id:8100';
     }
 
     public static function token()

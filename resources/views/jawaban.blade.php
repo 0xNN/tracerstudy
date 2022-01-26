@@ -20,13 +20,14 @@
                                   <textarea name="deskripsi_jawaban" id="deskripsi_jawaban" class="form-control"></textarea>
                               </div>
                               <div class="form-group">
-                                <label for="pertanyaan_id">Pertanyaan</label>
-                                <select class="form-control" id="pertanyaan_id" name="pertanyaan_id">
+                                <label for="kode_jawaban">Kode</label>
+                                <input type="text" name="kode_jawaban" id="kode_jawaban" class="form-control" placeholder="Kode Jawaban">
+                                {{-- <select class="form-control" id="pertanyaan_id" name="pertanyaan_id">
                                     <option>Choose...</option>
                                     @foreach ($pertanyaans as $pertanyaan)
                                 <option value="{{$pertanyaan->id}}">{{$pertanyaan->id}} --- {{$pertanyaan->deskripsi_pertanyaan}}</option>
                                     @endforeach
-                                  </select>
+                                  </select> --}}
                               </div>
 
         </div>
@@ -184,7 +185,8 @@
                       //set value masing-masing id berdasarkan data yg diperoleh dari ajax get request diatas
                       $('#id').val(data.id);
                       $('#deskripsi_jawaban').val(data.deskripsi_jawaban);
-                      $('#pertanyaan_id').val(data.pertanyaan_id);
+                      // $('#pertanyaan_id').val(data.pertanyaan_id);
+                      $('#kode_jawaban').val(data.kode_jawaban);
                   })
               });
 

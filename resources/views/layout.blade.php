@@ -28,6 +28,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css"integrity="sha256-pODNVtK3uOhL8FUNWWvFQK0QoQoV3YA9wGGng6mbZ0E=" crossorigin="anonymous" />
   <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.5.min.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+  <link rel="stylesheet" href="{{ asset('jajaxloader/skin/jajaxloader.css') }}">
+  {{-- <link rel="stylesheet" href="{{ asset('jajaxloader/skin/cssload/spiral.css') }}"> --}}
+  <link rel="stylesheet" href="{{ asset('jajaxloader/skin/cssload/colordots.css') }}">
+  {{-- <link rel="stylesheet" href="{{ asset('jajaxloader/skin/cssload/flipping_square.css') }}">
+  <link rel="stylesheet" href="{{ asset('jajaxloader/skin/cssload/spinning_square.css') }}">
+  <link rel="stylesheet" href="{{ asset('jajaxloader/skin/cssload/thecube.css') }}">
+  <link rel="stylesheet" href="{{ asset('jajaxloader/skin/cssload/ventilator.css') }}">
+  <link rel="stylesheet" href="{{ asset('jajaxloader/skin/cssload/zenith.css') }}"> --}}
+
 
   @yield('css')
 </head>
@@ -122,6 +131,15 @@
        <script type="text/javascript"  language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.6.3/papaparse.min.js" defer></script>
        <script type="text/javascript"  language="javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js" defer></script>
 
+       <script src="{{ asset('jajaxloader/js/jajaxloader.js') }}"></script>
+       {{-- <script src="{{ asset('jajaxloader/skin/cssload/spiral.js') }}"></script> --}}
+       <script src="{{ asset('jajaxloader/skin/cssload/colordots.js') }}"></script>
+       {{-- <script src="{{ asset('jajaxloader/skin/cssload/flipping_square.js') }}"></script>
+       <script src="{{ asset('jajaxloader/skin/cssload/spinning_square.js') }}"></script>
+       <script src="{{ asset('jajaxloader/skin/cssload/thecube.js') }}"></script>
+       <script src="{{ asset('jajaxloader/skin/cssload/ventilator.js') }}"></script>
+       <script src="{{ asset('jajaxloader/skin/cssload/zenith.js') }}"></script> --}}
+       
        @yield('js')
        {{-- <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.5.min.js"></script> --}}
        @yield('grid')

@@ -20,7 +20,7 @@ class PertanyaanController extends Controller
                             $button = '<div class="btn-group btn-group-sm" role="group">';
                             $button .= '<button href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-info btn-sm edit-post"><i class="far fa-edit"></i></button>';
                             $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
-                            $button .= '<button type="button" name="detail" id="'.$data->id.'" class="detail btn btn-dark btn-sm detail-post"><i class="far fa-eye"></i></button>';
+                            // $button .= '<button type="button" name="detail" id="'.$data->id.'" class="detail btn btn-dark btn-sm detail-post"><i class="far fa-eye"></i></button>';
                             $button .= '</div>';
                             return $button;
                         })
@@ -64,6 +64,7 @@ class PertanyaanController extends Controller
 
         $post   =   Pertanyaan::updateOrCreate(['id' => $id],
                     [
+                        'kode_pertanyaan' => $request->kode_pertanyaan,
                         'deskripsi_pertanyaan' => $request->deskripsi_pertanyaan,
                     ]);
 
@@ -80,7 +81,7 @@ class PertanyaanController extends Controller
     {
         $where = array('id' => $id);
         $post  = Pertanyaan::where($where)->first();
-        dd($post);
+        
         return response()->json($post);
     }
 

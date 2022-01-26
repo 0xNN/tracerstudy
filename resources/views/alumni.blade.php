@@ -177,7 +177,6 @@
         integrity="sha256-sPB0F50YUDK0otDnsfNHawYmA5M0pjjUf4TvRJkGFrI=" crossorigin="anonymous"></script>
          <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.js"
         integrity="sha256-siqh9650JHbYFKyZeTEAhq+3jvkFCG8Iz+MHdr9eKrw=" crossorigin="anonymous"></script>
-
   <script>
 
     $(document).ready(function () {
@@ -187,7 +186,6 @@
             }
         });
     });
-
 
     $(document).ready( function () {
       var tables=$('#alumnis').DataTable({
@@ -242,19 +240,33 @@
         });
 
         $('.buttonSync').click(function() {
-          $.post('{{ route("F1.sync") }}', function(data) {
-            if(data.success == true)
-            {
-              iziToast.show({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
-                                theme: 'dark',
-                                title: 'Sync Successfully',
-                                message: `${data.totalSuccess} berhasil di sinkronisasi, ${data.totalFail} sudah ada!`,
-                                position: 'center',
-                                progressBarColor: 'rgb(0, 255, 184)',
-                                timeout: 7000
-                            });
+          $.ajax({
+            url: "{{ route('F1.sync') }}",
+            type: "POST",
+            beforeSend: function() {
+              $(document.body).ajaxloader({
+                cssClass: "cssload_colordots"
+              });
+            },
+            complete: function(data) {
+              if(data.success == true) {
+                iziToast.show({ //tampilkan iziToast dengan notif data berhasil disimpan pada posisi kanan bawah
+                    theme: 'dark',
+                    title: 'Sync Successfully',
+                    message: `${data.totalSuccess} berhasil di sinkronisasi, ${data.totalFail} sudah ada!`,
+                    position: 'center',
+                    progressBarColor: 'rgb(0, 255, 184)',
+                    timeout: 7000
+                });
+              }
+              setTimeout(function () {
+                $(document.body).ajaxloader("stop");
+              }, 2000);
             }
-          })
+          });
+          // $.post('{{ route("F1.sync") }}', function(data) {
+
+          // })
         });
 
       if ($("#form-tambah-edit").length > 0) {

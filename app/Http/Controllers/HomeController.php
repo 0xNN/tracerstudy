@@ -6,6 +6,7 @@ use App\Models\F1;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
@@ -43,6 +44,7 @@ class HomeController extends Controller
             'jumlah_alumni_per_jenispekerjaan' => $this->jumlah_alumni_per_jenispekerjaan(),
             'jumlah_alumni_per_jangkawaktu' => $this->jumlah_alumni_per_jangkawaktu(),
         ];
+        // return response($datas);
         return view('home', compact('datas'));
     }
 
@@ -65,6 +67,10 @@ class HomeController extends Controller
         ];
 
         return $api->get_data_api($req);
+        // $getCount = Http::get($api->base_uri().'/web-apis-guest/mhs-counter/'.date('Y'));
+        // if($get)
+        // dd($getCount['data'][0]['total']);
+        // return $getCount;
     }
 
     public function jumlah_alumni()
@@ -75,34 +81,80 @@ class HomeController extends Controller
 
     public function jumlah_alumni_per_prodi()
     {
-        $datas = F1::select(DB::raw('COUNT(*) as count'))
+        $datas = F1::select(DB::raw('COUNT(*) as count, kode_prodi'))
                     ->groupBy('kode_prodi')
                     ->whereYear('tgl_wisuda', date('Y'))
-                    ->pluck('count');
-        return $datas;
+                    ->get();
+        
+        $arr = array();
+        foreach($datas as $data) {
+            $a = [
+                'name' => $data->kode_prodi == "74201" ? "Ilmu Hukum (S1)": "Hukum (S2)",
+                'data' => [$data->count]
+            ];
+            array_push($arr, $a);
+        }
+        return $arr;
     }
 
     public function jumlah_alumni_per_kabupaten()
     {
+        $base_uri = ApiController::base_uri();
+        $datas = F1::select(DB::raw("COUNT(*) as count, kode_prodi"))
+                    ->groupBy('kode_prodi')
+                    ->where('province_id', 16)
+                    ->get();
 
+        $arr = array();
+        foreach($datas as $data) {
+            $a = [
+                'name' => $data->kode_prodi == "74201" ? "Ilmu Hukum (S1)": "Hukum (S2)",
+                'data' => [$data->count]
+            ];
+            array_push($arr, $a);
+        }
+        return $arr;
     }
 
     public function jumlah_alumni_per_provinsi()
     {
-        // $series[0]['name'] = 'Total Responden';
-        // $provinsi = new ApiController;
-        // $province = array();
-        // foreach($provinsi as $data) {
-        //     $province[] = $data->text;
-        //     $series[0]['data'][] = (int) $this->total_per_provinsi($data->id);
-        // }
+        $api = new ApiController;
 
-        // return ['category' => $province ?? '', 'series' => $series];
+        $arr = array();
+        foreach($api->provinsi() as $provinsi) {
+            $count = F1::where('province_id', $provinsi["id"])
+                        ->whereYear('tgl_wisuda', date('Y'))
+                        ->count();
+            $a = [
+                'name' => $provinsi["text"],
+                'data' => [$count]
+            ];
+            array_push($arr, $a);
+        }
+        
+        return $arr;
     }
 
     public function jumlah_alumni_per_jenispekerjaan()
     {
+        $arr = array();
 
+        $countNo = F1::whereNull('tempat_kerja')->count();
+        $countYes = F1::whereNotNull('tempat_kerja')->count();
+
+        $a = [
+            'name' => 'Sudah Mendapat Kerja',
+            'data' => [$countYes]
+        ];
+        array_push($arr, $a);
+
+        $a = [
+            'name' => 'Belum Mendapat Kerja',
+            'data' => [$countNo]
+        ];
+        array_push($arr, $a);
+
+        return $arr;
     }
 
     public function jumlah_alumni_per_jangkawaktu()
